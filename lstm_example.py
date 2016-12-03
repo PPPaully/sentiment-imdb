@@ -1,16 +1,15 @@
-n_epoch = 100 => #words in input
-n_word = 50
+n_word = 50 <- See lstm example pic
 n_vec = 300
 n_unit = 32
 n_hidden = 64
 n_class = 30
 
-INPUT = T.tensor3() <- 3D-array = numpy.ndarray
-CELL = T.tensor3()
-HIDDEN = T.tensor3()
+INPUT = T.fmatrix() <- 2D-array = numpy.ndarray shape likes (n_word, n_vec)
+CELL = T.fmatrix() <- shape likes (n_unit, n_vec)
+HIDDEN = T.fmatrix() <- shape likes (n_unit, n_vec)
 
 
-lstm_wxi = init_weights((n_unit, n_vec, n_vec)) <- 3D-array with (n_unit,n_vec,n_vec) those will come from trained-weight
+lstm_wxi = init_weights((n_unit, n_vec, n_vec)) <- 3D-array with (n_unit,n_vec,n_vec). Those will come from pretrained-weight
 lstm_wxf = init_weights((n_unit, n_vec, n_vec))
 lstm_wxc = init_weights((n_unit, n_vec, n_vec))
 lstm_wxo = init_weights((n_unit, n_vec, n_vec))
@@ -45,12 +44,18 @@ def lstm(x_t, c_tm1, h_tm1):
 #   T.mul - Hadamard product A*B at ij = Aij*Bij
 #   T.tanh - Hyper-tangent function
 
-lstm_output = ...
-# for loop:
-#   do lstm(input, cell_state, hidden_state) from input[at 0 until end]
-#   with initial cell_state and hidden_state [0, 0, ...] and use its as "old state" for next loop
+lstm_layer = ...
+# for loop in INPUT:
+#   do lstm(input_one_word, CELL, HIDDEN)
+#   with input_one_word = INPUT[i] shape likes (1, 1-word, n_vec) - see numpy.reshape
+#   with initial CELL and HIDDEN by numpy.zeros() and use its as "old state" for next loop
+# OUTPUT - lstm_layer = each HIDDEN state [HIDDEN at 1, HIDDEN at 2, HIDDEN at 3, ..., HIDDEN at n_word]
+#    so output's shape must be (n_word, n_unit, n_vec)
+
+lstm_output = T.flatten(lstm_layer, 2) <- 2 mean 2-dims
+# see numpy.flatten
+# make sure that lstm_output's shape must be (n_word, n_unit * n_vec)
 
 model_fw = init_weights((n_unit * n_vec, n_class))
 model_output = T.nnet.sigmoid(T.dot(lstm_output, model_fw))
-
 # Just dot = fully connected NN
