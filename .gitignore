@@ -1,3 +1,4 @@
 .idea
 /venv/
 *.pyc
+model/imdb_word2vec.npy
