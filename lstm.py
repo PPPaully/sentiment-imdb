@@ -24,13 +24,11 @@ class Model:
 
         self.class_name = [c for c in np.load('./model/imdb_class.npy') if c.startswith('genre_')]
         self.n_class = len(self.class_name)
-        # TODO: Loss var, due to forget to save trained fully-nn T_T
-        self.fully_weight = np.ones((model.n_unit * model.n_vec, model.n_class))
-        self.fully_weight /= 800.0
+        self.fully_weight = np.load('./model/lstm_fw.npy')
 
     @staticmethod
     def sigmoid(x):
-        return 1 / (1 + pow(2.7182818284590452353602874713527, -x))
+        return 1 / (1 + np.exp(-x))
 
     @staticmethod
     def batched_dot(a, b):
@@ -72,12 +70,12 @@ class Model:
             })
             if valids[i]:
                 j += 1
-        return answer
+        return answer, model_output
 
 
 word2vec = np.load('./model/imdb_word2vec.npy').item()
 
 plot = "I love you"
 model = Model()
-model.predict(plot)
-json.dumps({'class': model.class_name, 'output': model.predict(plot)})
+output, model_output = model.predict(plot)
+print json.dumps({'class': model.class_name, 'output': output})
