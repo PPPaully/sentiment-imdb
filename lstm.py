@@ -1,6 +1,7 @@
 import json
 import numpy as np
 from nltk.tokenize import word_tokenize
+from nltk.tokenize import sent_tokenize
 
 
 class Model:
@@ -46,36 +47,45 @@ class Model:
         h_t = o_t * np.tanh(c_t)
         return c_t, h_t
 
-    def predict(self, storyline):
-        words = word_tokenize(storyline.lower())
-        vecs = np.asarray([word2vec[word].copy() for word in words if word in word2vec])
-        valids = [(word in word2vec) for word in words]
-
-        model_output = []
+    def run(self, vecs):
         cell_state = np.zeros((self.n_unit, 1, self.n_vec))
         hidden_state = np.zeros((self.n_unit, 1, self.n_vec))
         for vector in vecs:
             cell_new, hidden_new = self.lstm(vector.reshape(1, 1, -1), cell_state, hidden_state)
             lstm_output = np.concatenate(hidden_new, axis=1)
-            model_output.append(list(np.concatenate(self.sigmoid(np.dot(lstm_output, self.fully_weight)))))
             cell_state, hidden_state = cell_new, hidden_new
+        model_output = self.sigmoid(np.dot(lstm_output, self.fully_weight))
+        return model_output.tolist()
 
-        answer = []
-        j = 0
-        for i in range(len(words)):
-            answer.append({
-                'word': words[i],
-                'valid': valids[i],
-                'predict': model_output[j] if valids[i] else -np.ones(self.n_class)
+    def predict(self, storyline):
+        sentiment = []
+        for sentence in sent_tokenize(storyline.lower()):
+            words = word_tokenize(sentence)
+            vecs = np.asarray([word2vec[word].copy() for word in words if word in word2vec])
+
+            if len(vecs) > 0:
+                predict = self.run(vecs)
+
+            sentiment.append({
+                'sentence': sentence,
+                'valid': len(vecs) > 0,
+                'predict': predict if len(vecs) > 0 else np.zeros(self.n_class)
             })
-            if valids[i]:
-                j += 1
-        return answer, model_output
+
+        words = word_tokenize(storyline.lower())
+        vecs = np.asarray([word2vec[word].copy() for word in words if word in word2vec])
+        overall = self.run(vecs) if len(vecs) > 0 else np.zeros(self.n_class)
+
+        return {
+            'class': model.class_name,
+            'sentiment': sentiment,
+            'overall': overall
+        }
 
 
 word2vec = np.load('./model/imdb_word2vec.npy').item()
 
-plot = "I love you"
+plot = "I love you. Do you love me? No, we should be friend."
 model = Model()
-output, model_output = model.predict(plot)
-print json.dumps({'class': model.class_name, 'output': output})
+output = model.predict(plot)
+print json.dumps(output)
