@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+    <title>AI project</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/bootstrap.css') }}">
+    <style>
+        body {
+            text-align: center;
+            background-color: #e0d7f7;
+        }
+        h3 {
+            margin: auto 0px 0px;
+            background-color: #5e5e5e;
+            color: white;
+            /*margin-bottom: 0px;*/
+            padding: 10px;
+            font-weight: bold;
+            border-radius: 15px 15px 0px 0px;
+        }
+
+        form {
+            text-align: center;
+        }
+        #submit {
+            width: 150px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 50px;
+            border-radius: 15px;
+
+        }
+        #random {
+            width: 150px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 50px;
+            border-radius: 15px;
+        }
+
+        #content{
+            text-align: center;
+            padding: 0px;
+
+        }
+        #review {
+            text-align: left;
+            height: 250px;
+            width: 100%;
+            padding-left:0.4em;
+            padding-top:0.4em;
+            padding-right: 0.4em;
+            border-radius: 0px 0px 15px 15px;
+            border: transparent;
+        }
+        /*figure {*/
+            /*width: 250px;*/
+            /*height: 170px;  */
+            /*margin: 0;*/
+            /*padding: 0;*/
+            /*overflow: hidden;*/
+        /*}*/
+        figure img {
+            -moz-box-shadow: 2px 2px 2px rgba(0,0,0,.5);
+            -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,.5);
+            box-shadow: 2px 2px 2px rgba(0,0,0,.5);
+            border-radius: 10px;
+            text-align: center;
+            height: 170px;
+            width: 250px;
+            -webkit-transform: scale(1);
+	        transform: scale(1);
+	        -webkit-transition: .3s ease-in-out;
+	        transition: .3s ease-in-out;
+        }
+        figure:hover img {
+	        -webkit-transform: scale(1.3);
+	        transform: scale(1.3);
+}
+        h4 {
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body class="">
+    <div class="container">
+{#        <img src="" alt="logo">#}
+        <h1>LOGO</h1>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" id="content">
+                <form>
+                    <h3>your plot here</h3>
+                    <textarea id="review" type="text" name="review"></textarea>
+                    <br>
+                    <br>
+                    <input id="submit" type="submit" class="btn btn-primary" value="Submit">
+                    <input id="random" type="submit" class="btn btn-info" value="Random">
+                </form>
+            </div>
+             <div class="col-md-2"></div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-1"></div>
+
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-4">
+                        <figure><img src="{{ url_for('static', filename='images/1.jpg') }}" alt="1"></figure>
+                        <h4>Sci-fi</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <figure><img src="{{ url_for('static', filename='images/2.gif') }}" alt="2"></figure>
+                        <h4>Drama</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <figure><img src="{{ url_for('static', filename='images/3.jpg') }}" alt="3"></figure>
+                        <h4>Action</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1"></div>
+
+        </div>
+        <div class="row">
+                <br>
+                <div class="row">
+                    <div class="col-md-3">
+                        <figure><img src="{{ url_for('static', filename='images/4.jpg') }}" alt="4"></figure>
+                        <h4>Comedy</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <figure><img src="{{ url_for('static', filename='images/5.jpg') }}" alt="5"></figure>
+                        <h4>Romance</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <figure><img src="{{ url_for('static', filename='images/6.jpg') }}" alt="6"></figure>
+                        <h4>Adventure</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <figure><img src="{{ url_for('static', filename='images/7.jpg') }}" alt="7"></figure>
+                        <h4>Thriller</h4>
+                    </div>
+                </div>
+
+
+        </div>
+    </div>
+
+<script type="text/javascript" src="  {{ url_for('static', filename='js/lib/jquery-1.12.4.min.js') }}"></script>
+<script type="text/javascript" src="  {{ url_for('static', filename='js/lib/bootstrap.js') }}"></script>
+
+</body>
+</html>
