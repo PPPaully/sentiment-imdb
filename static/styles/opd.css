@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css?family=Mitr');
+
+footer.footer {
+    margin-top: 48px;
+    padding: 12px;
+    text-align: center;
+    /*background-color: #222;*/
+    /*color: #fff;*/
+    border-top: 1px solid #ccc;
+    color: #aaa;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Mitr', sans-serif;
+}
+
+.nav-main {
+    background-color: #0b9dcb;
+    border: none;
+    margin-bottom: 0;
+}
+
+.nav-main .navbar-brand {
+    color: #fff;
+}
+
+.nav-main .navbar-nav > li > a {
+    color: #fff;
+}
+
+.nav-primary {
+    background-color: #0b9dcb;
+    padding-top: 12px;
+    margin-bottom: 12px;
+}
+
+.nav-primary .nav.nav-tabs > li:not(.active) > a {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.query-box {
+    text-align: right;
+}
+
+.meta-item {
+    margin-right: 24px;
+}
+
+hr {
+    border-color: #ccc;
+}
+
+.clickable-row {
+    cursor: pointer;
+}
+
+.panel-main {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-tick.available {
+    background-color: #ada;
+}
+
+.schedule-tick.dayon {
+    background-color: #cfc;
+}
+
+.schedule-tick.dayon.available {
+    background-color: #ada;
+}
+
+.schedule-tick.dayoff {
+    background-color: #fff;
+}
+
+.schedule-tick.dayoff.available {
+    background-color: #eee;
+}
+
+.overflow-x-container {
+    overflow-x: scroll;
+}
+
+#appointment-calendar td.booked {
+    background-color: #ccc;
+}
+
+#appointment-calendar td.today {
+    font-weight: bold;
+    color: #800;
+    background-color: #fcc;
+}
+
+#appointment-calendar td.selected {
+    box-sizing: border-box;
+    background-color: #fec;
+    border: 1px solid #a92;
+}
+
+#appointment-calendar td {
+    min-width: 7em;
+}
+
+#appointment-calendar button.booked {
+    background-color: #ccc;
+    color: #777;
+}
+
+#appointment-calendar button.selected {
+    background-color: #fe6;
+}
+
+/*.search-patient-box {*/
+    /*width: 350px*/
+/*}*/
+
+.search-patient-box button {
+    border: none;
+    background-color: transparent;
+}
+
+.pat-info-status {
+    margin-top: 0px;
+    text-align: center;
+}
+
+.pat-card {
+    width: 600px;
+    padding-top: 0;
+}
+
+.pat-card th {
+    text-align: center;
+}
+
+.vertical-line {
+    margin-left: 5px;
+    padding-left: 5px;
+    border-left: thin solid #aaa;
+}
+
+ul.legend {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul.legend li {
+    display: inline-block;
+    margin-right: 18px;
+    vertical-align: middle;
+}
+
+ul.legend li > .color {
+    display: inline-block;
+    margin-right: 6px;
+    width: 16pt;
+    height: 16pt;
+    border-radius: 50%;
+    background-color: #ddd;
+    vertical-align: middle;
+}
+
+ul.legend li > .color.today {
+    background-color: #fcc;
+}
+
+ul.legend li > .color.booked {
+    background-color: #ccc;
+}
+
+ul.legend li > .color.selected {
+    background-color: #fec;
+    border: 1px solid #a92;
+}
+
+ul.legend li > .color.available {
+    background-color: #fff;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
+}
+
+body.account {
+	background-color: #0b9dcb;
+    padding-top: 50px;
+    padding-bottom: 50px;
+	/*background-image: url(http://thecutestblogontheblock.com/wp-content/uploads/2011/11/hilltop-hideaway-free-stretch-blog-background-wood.jpg);*/
+}
+
+body.account .panel {
+	border-radius: 8px;
+    box-shadow: 0 5px 40px rgba(0, 0, 0, .2);
+}
+
+.login-form {
+    width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.register-form {
+    max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.edit-account-form{
+    max-width: 768px;
+}
+
+.login-form input {
+    width: 100%;
+    background: #fff;
+    border: none;
+    outline: none;
+    padding: 10px;
+    color: #000;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    -webkit-transition: box-shadow .5s ease;
+    -moz-transition: box-shadow .5s ease;
+    -o-transition: box-shadow .5s ease;
+    -ms-transition: box-shadow .5s ease;
+    transition: box-shadow .5s ease;
+}
+
+.login-form .checkbox input {
+    width: auto;
+}
+
+.login-form input:focus {
+    box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.2), 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.alert-box {
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    top: 50px;
+    z-index: 1000;
+}
+
+.alert-box .alert{
+    text-align: left;
+    width: 80%;
+    max-width: 600px;
+    margin: auto;
+    margin-bottom: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+.form-inline {
+    display: inline-block;
+}
+.form-inline .form-group {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+img.logo {
+    height: 60px;
+}

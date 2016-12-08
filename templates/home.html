@@ -89,20 +89,40 @@
     <div class="container">
 {#        <img src="" alt="logo">#}
         <h1>LOGO</h1>
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8" id="content">
-                <form>
-                    <h3>your plot here</h3>
-                    <textarea id="review" type="text" name="review"></textarea>
-                    <br>
-                    <br>
-                    <input id="submit" type="submit" class="btn btn-primary" value="Submit">
-                    <input id="random" type="submit" class="btn btn-info" value="Random">
-                </form>
+        {% if result is defined %}
+            TODO: inging
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    From Predict that 
+                </div>
+                <div class="col-md-2"></div>
+                {% for obj in result['sentiment'] %}
+                    <dt>{{ obj['sentence'] }}</dt>
+                    <dd>{{ obj['predict'] }}</dd>
+                {% endfor %}
+                overall: {{ result.overall }}
             </div>
-             <div class="col-md-2"></div>
-        </div>
+        {% else %}
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    We will predict the genre of the movie by the plot you write below.<br> Try write some :)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8" id="content">
+                    <form action="/predict-plot" method="POST">
+                        <h3>your plot here</h3>
+                        <textarea id="review" type="text" name="review"></textarea>
+                        <br>
+                        <br>
+                        <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                        <button id="random" class="btn btn-info" value="Random">Random</button>
+                    </form>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        {% endif %}
         <br>
         <br>
         <div class="row">
@@ -155,6 +175,14 @@
 
 <script type="text/javascript" src="  {{ url_for('static', filename='js/lib/jquery-1.12.4.min.js') }}"></script>
 <script type="text/javascript" src="  {{ url_for('static', filename='js/lib/bootstrap.js') }}"></script>
-
+<script type="text/javascript">
+    $('#random').on('click', function(e) {
+        e.preventDefault();
+        console.log('hello');
+        $.get('/random', function(data) {
+            $('#review').val(data)
+        })
+    })
+</script>
 </body>
 </html>

@@ -83,9 +83,9 @@ class Model:
         }
 
 
-word2vec = np.load('./model/imdb_word2vec.npy').item()
+word2vec = np.load('./model/imdb_word2vec.npy', encoding='latin1').item()
 
 plot = "I love you. Do you love me? No, we should be friend."
 model = Model()
 output = model.predict(plot)
-print json.dumps(output)
+print(json.dumps(output))
