@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, width=device-width">
@@ -20,7 +20,9 @@
             font-weight: bold;
             border-radius: 15px 15px 0px 0px;
         }
-
+        h1 {
+           font-weight: bold;
+        }
         form {
             text-align: center;
         }
@@ -30,6 +32,7 @@
             font-weight: bold;
             margin-right: 50px;
             border-radius: 15px;
+            border: transparent;
 
         }
         #random {
@@ -38,6 +41,7 @@
             font-weight: bold;
             margin-left: 50px;
             border-radius: 15px;
+            border: transparent;
         }
 
         #content{
@@ -54,6 +58,13 @@
             padding-right: 0.4em;
             border-radius: 0px 0px 15px 15px;
             border: transparent;
+        }
+        #ans {
+            text-align: left;
+            padding: 15px;
+            border-radius: 15px;
+            border: transparent;
+            background: #fcf8e3;
         }
         /*figure {*/
             /*width: 250px;*/
@@ -82,30 +93,128 @@
         h4 {
             font-weight: bold;
         }
+        h5 {
+            font-size: 15px;
+        }
+
+        #action {
+            color: #d43f3a;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #adventure {
+            color: #2b542c;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #comedy {
+            color: #eea236;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #drama {
+            color: #5e5e5e;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #romance {
+            color: deeppink;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #sci-fi {
+            color: darkslateblue;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #thriller {
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        #overall {
+            color: saddlebrown;
+            font-size: 21px;
+            font-weight: bold;
+            font-style: italic;
+        }
+        #try {
+            margin-right: 0px;
+            margin-top: 15px;
+            width: 300px;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            border: transparent;
+            border-radius: 15px;
+            background-color: #b971f7;
+        }
+        #try:hover{
+            background-color: #9d4be5;
+        }
+        #try-form {
+            text-align: right;
+            padding-right: 100px;
+        }
     </style>
 
 </head>
 <body class="">
     <div class="container">
-{#        <img src="" alt="logo">#}
-        <h1>LOGO</h1>
-        {% if result is defined %}
-            TODO: inging
+    <!--<img src="" alt="logo">-->
+        <h1>Movie Genre Prediction</h1>
+        {% if result %}
+            <p id="overall">From Predict that...</p>
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    From Predict that 
+                <div class="col-md-2"></div>
+                <div class="col-md-8" id="ans">
+                <p>
+                {% for obj in result['sentiment'] %}
+                    {% if obj['predict'] == "genre_action" %}
+                        <span id="action" data-toggle="action" title="action">{{ obj['sentence'] }} </span>
+                    {% elif obj['predict'] == "genre_adventure" %}
+                        <span id="adventure" data-toggle="adventure" title="adventure">{{ obj['sentence'] }} </span>
+                    {% elif obj['predict'] == "genre_comedy" %}
+                        <span id="comedy" data-toggle="comedy" title="comedy">{{ obj['sentence'] }} </span>
+                    {% elif obj['predict'] == "genre_drama" %}
+                        <span id="drama" data-toggle="drama" title="drama">{{ obj['sentence'] }} </span>
+                    {% elif obj['predict'] == "genre_romance" %}
+                        <span id="romance" data-toggle="romance" title="romance">{{ obj['sentence'] }} </span>
+                    {% elif obj['predict'] == "genre_sci-fi" %}
+                        <span id="sci-fi" data-toggle="sci-fi" title="sci-fi">{{ obj['sentence'] }} </span>
+                    {% else %}
+                        <span id="thriller" data-toggle="thriller" title="thriller">{{ obj['sentence'] }} </span>
+                    {% endif %}
+                {% endfor %}
+                </p>
+                    {% if result.overall == "genre_action" %}
+                    <p id="overall">We predict that this plot is : "Action"</p>
+                    {% elif result.overall == "genre_adventure" %}
+                    <p id="overall">We predict that this plot is : "Adventure"</p>
+                    {% elif result.overall == "genre_comedy" %}
+                    <p id="overall">We predict that this plot is : "Comedy"</p>
+                    {% elif result.overall == "genre_drama" %}
+                    <p id="overall">We predict that this plot is : "Drama"</p>
+                    {% elif result.overall == "genre_romance" %}
+                    <p id="overall">We predict that this plot is : "Romance"</p>
+                    {% elif result.overall == "genre_sci" %}
+                    <p id="overall">We predict that this plot is : "Sci-fi"</p>
+                    {% else %}
+                    <p id="overall">We predict that this plot is : "Thriller"</p>
+                    {% endif %}
+
                 </div>
                 <div class="col-md-2"></div>
-                {% for obj in result['sentiment'] %}
-                    <dt>{{ obj['sentence'] }}</dt>
-                    <dd>{{ obj['predict'] }}</dd>
-                {% endfor %}
-                overall: {{ result.overall }}
             </div>
+            <h5>*The color of each sentence represents each genre we predict. Hover your mouse over each sentence to see.*</h5>
+            <form action="/try-again" method="POST" id="try-form">
+                <button id="try" type="submit" class="btn btn-primary">Try our prediction again</button>
+            </form>
         {% else %}
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    We will predict the genre of the movie by the plot you write below.<br> Try write some :)
+                    <h4>We will predict the genre of the movie by the plot you write below.<br> Try write some :)<h4>
                 </div>
             </div>
             <div class="row">
@@ -131,15 +240,15 @@
             <div class="col-md-10">
                 <div class="row">
                     <div class="col-md-4">
-                        <figure><img src="{{ url_for('static', filename='images/1.jpg') }}" alt="1"></figure>
+                        <figure><img src="{{ url_for('static', filename='images/1.jpg') }}" id="1" alt="1"></figure>
                         <h4>Sci-fi</h4>
                     </div>
                     <div class="col-md-4">
-                        <figure><img src="{{ url_for('static', filename='images/2.gif') }}" alt="2"></figure>
+                        <figure><img src="{{ url_for('static', filename='images/2.gif') }}" id="2" alt="2"></figure>
                         <h4>Drama</h4>
                     </div>
                     <div class="col-md-4">
-                        <figure><img src="{{ url_for('static', filename='images/3.jpg') }}" alt="3"></figure>
+                        <figure><img src="{{ url_for('static', filename='images/3.jpg') }}" id="3" alt="3"></figure>
                         <h4>Action</h4>
                     </div>
                 </div>
@@ -152,19 +261,19 @@
                 <br>
                 <div class="row">
                     <div class="col-md-3">
-                        <figure><img src="{{ url_for('static', filename='images/4.jpg') }}" alt="4"></figure>
+                        <figure><img src="{{ url_for('static', filename='images/4.jpg') }}" id="4" alt="4"></figure>
                         <h4>Comedy</h4>
                     </div>
                     <div class="col-md-3">
-                        <figure><img src="{{ url_for('static', filename='images/5.jpg') }}" alt="5"></figure>
+                        <figure><img src="{{ url_for('static', filename='images/5.jpg') }}" id="5" alt="5"></figure>
                         <h4>Romance</h4>
                     </div>
                     <div class="col-md-3">
-                        <figure><img src="{{ url_for('static', filename='images/6.jpg') }}" alt="6"></figure>
+                        <figure><img src="{{ url_for('static', filename='images/6.jpg') }}" id="6" alt="6"></figure>
                         <h4>Adventure</h4>
                     </div>
                     <div class="col-md-3">
-                        <figure><img src="{{ url_for('static', filename='images/7.jpg') }}" alt="7"></figure>
+                        <figure><img src="{{ url_for('static', filename='images/7.jpg') }}" id="7" alt="7"></figure>
                         <h4>Thriller</h4>
                     </div>
                 </div>
@@ -183,6 +292,17 @@
             $('#review').val(data)
         })
     })
+
+    $(document).ready(function(){
+        $('[data-toggle="action"]').tooltip();
+        $('[data-toggle="adventure"]').tooltip();
+        $('[data-toggle="comedy"]').tooltip();
+        $('[data-toggle="drama"]').tooltip();
+        $('[data-toggle="romance"]').tooltip();
+        $('[data-toggle="sci-fi"]').tooltip();
+        $('[data-toggle="thriller"]').tooltip();
+    });
+
 </script>
 </body>
 </html>

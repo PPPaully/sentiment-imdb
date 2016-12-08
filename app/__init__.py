@@ -33,10 +33,13 @@ def hello():
     result['overall'] = result['class'][temp.index(max(temp))]
     return render_template('home.html', result=result)
 
+@app.route('/try-again', methods=['POST'])
+def try_again():
+    return render_template('home.html', result=None)
 
 @app.route('/')
 def main():
-    return render_template('home.html')
+    return render_template('home.html', result=None)
 
 
 def this_is_magic(plot):
