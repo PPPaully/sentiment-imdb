@@ -1,4 +1,9 @@
 from flask import Flask, request, g, render_template
+from .lstm_model import Model
+import json
+import numpy as np
+from nltk.tokenize import word_tokenize
+from nltk.tokenize import sent_tokenize
 
 DEBUG = True
 
@@ -113,6 +118,11 @@ def this_is_magic(plot):
             ]
         ]
     }
+    model = Model()
+    output = model.predict(plot)
+    # print(json.dumps(output))
+    print(output)
+    return output
     return dummy
     # return render_template('home.html', result='foo bar')
 
