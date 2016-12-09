@@ -89,7 +89,7 @@
         figure:hover img {
 	        -webkit-transform: scale(1.3);
 	        transform: scale(1.3);
-}
+        }
         h4 {
             font-weight: bold;
         }
@@ -104,8 +104,7 @@
         }
 
         #action:hover {
-            line-height: 90%;
-            font-size: 22px;
+            text-decoration: underline;
         }
 
         #adventure {
@@ -115,8 +114,7 @@
         }
 
          #adventure:hover {
-            line-height: 90%;
-            font-size: 22px;
+            text-decoration: underline;
         }
 
         #comedy {
@@ -126,8 +124,7 @@
         }
 
         #comedy:hover {
-            line-height: 90%;
-            font-size: 22px;
+            text-decoration: underline;
         }
         #drama {
             color: #5e5e5e;
@@ -135,8 +132,7 @@
             font-weight: bold;
         }
         #drama:hover {
-            line-height: 90%;
-            font-size: 22px;
+            text-decoration: underline;
         }
         #romance {
             color: deeppink;
@@ -144,8 +140,7 @@
             font-weight: bold;
         }
         #romance:hover {
-            line-height: 90%;
-            font-size: 22px;
+            text-decoration: underline;
         }
         #sci-fi {
             color: darkslateblue;
@@ -153,8 +148,7 @@
             font-weight: bold;
         }
         #sci-fi:hover {
-            line-height: 90%;
-            font-size: 22px;
+            text-decoration: underline;
         }
         #thriller {
             color: black;
@@ -162,8 +156,7 @@
             font-weight: bold;
         }
         #thriller:hover {
-            line-height: 90%;
-            font-size: 22px;
+            text-decoration: underline;
         }
         #overall {
             color: saddlebrown;
@@ -230,16 +223,24 @@
                     <p id="overall">We predict that this plot is : "Drama"</p>
                     {% elif result.overall == "genre_romance" %}
                     <p id="overall">We predict that this plot is : "Romance"</p>
-                    {% elif result.overall == "genre_sci" %}
+                    {% elif result.overall == "genre_sci-fi" %}
                     <p id="overall">We predict that this plot is : "Sci-fi"</p>
                     {% else %}
                     <p id="overall">We predict that this plot is : "Thriller"</p>
                     {% endif %}
-
                 </div>
                 <div class="col-md-2"></div>
             </div>
             <h5>*The color of each sentence represents each genre we predict. Hover your mouse over each sentence to see.*</h5>
+            <div class="col-md-8 col-md-offset-2">
+                <table class="text-center" style="margin: auto; width: 100px">
+
+                    <tr><th>Class</th><th>Percent</th></tr>
+                {% for percent, class in result['summary'] %}
+                    <tr><td class="text-left" style="padding-right: 20px">{{ class[6:] }}</td><td>{{ '%.2f' % percent }}%</td></tr>
+                {% endfor %}
+                </table>
+            </div>
             <form action="/try-again" method="POST" id="try-form">
                 <button id="try" type="submit" class="btn btn-primary">Try our prediction again</button>
             </form>

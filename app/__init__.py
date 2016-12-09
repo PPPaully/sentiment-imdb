@@ -31,11 +31,18 @@ def hello():
     data = dict(data)
     review = data['review'][0]
     result = this_is_magic(review)
+
+    summary = zip((np.asarray(result['overall'][0])*100).tolist(), result['class'])
+    summary.sort(reverse=True)
+    for percent, category in summary:
+        print "%15s: %5.2f%%" % (category, percent)
+
     for sentence in result['sentiment']:
         temp = sentence['predict'][0]
         sentence['predict'] = result['class'][temp.index(max(temp))]
     temp = result['overall'][0]
     result['overall'] = result['class'][temp.index(max(temp))]
+    result['summary'] = summary
     return render_template('home.html', result=result)
 
 @app.route('/try-again', methods=['POST'])
